@@ -20,14 +20,15 @@ jobs:
             wget https://cache.ruby-lang.org/pub/ruby/3.2/ruby-3.2.3.tar.xz &&
             tar -xf ruby-3.2.3.tar.xz &&
             cd ruby-3.2.3 &&
-            ./configure --prefix=/src/ruby-3.2.3 &&
+            ./configure --prefix=/src/ruby-install &&
             make -j$(nproc) &&
             make install &&
-            tar -czf /src/ruby-3.2.3-arch.tar.gz /src/ruby-3.2.3
+            cd /src &&
+            tar -czf ruby-3.2.3-arch.tar.gz ruby-install
           "
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: ruby-3.2.3-arch
-          path: ruby-3.2.3-arch.tar.gz
+          path: ./ruby-3.2.3-arch.tar.gz
